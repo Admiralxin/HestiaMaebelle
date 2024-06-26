@@ -25,7 +25,7 @@ a.NetworkClient.ConnectionAccepted:Connect(
 )
 local r = {
     ["createUi"] = function(s, t)
-        local u = {"Loading...", "Verified!", "twist\nWorld Zero"}
+        local u = {"Hi....", "Toyax!", "MarkAncajas"}
         local v = {
             {
                 ["Image"] = "rbxassetid://3926305904",
