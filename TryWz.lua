@@ -35,5 +35,5 @@ if (not table.find(noExec, place)) then
 		--"mob boss 29",
 		--"life drain 6",
 	}
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/dread415/AutoFarm/main/autofarm.lua"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Admiralxin/HestiaMaebelle/main/Ultimate.lua"))()
 end
