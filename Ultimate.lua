@@ -2734,7 +2734,7 @@ local cd = {
         }}
     }
 }
-bY = c7('aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3JvbmFsZGJ1cmdlcnNvbi9ib3JnL21haW4vYnJvb20=')
+bY = 'https://raw.githubusercontent.com/maihoangphi2531/infscriptv2/main/'
 local ce = Instance.new('Folder')
 ce.Name = 'SummonFolder'
 ce.Parent = Workspace;
@@ -5794,3 +5794,4 @@ end
 pcall(function()
     a4 = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(d, 8136250)
 end)
+
