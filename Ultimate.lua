@@ -2734,1492 +2734,1488 @@ local cd = {
         }}
     }
 }
-bY = 'https://raw.githubusercontent.com/maihoangphi2531/infscriptv2/main/'
-local ce = Instance.new('Folder')
-ce.Name = 'SummonFolder'
-ce.Parent = Workspace;
-local cf = Instance.new('Folder')
-cf.Name = 'infiniteboy'
-cf.Parent = Workspace;
+local ce = 'https://raw.githubusercontent.com/maihoangphi2531/infscriptv2/main/'
+local cf;
 local cg;
-if aD then
-    cg = Instance.new('Part')
-    cg.Name = 'InfiniteKillPart'
-    cg.Size = Vector3.new(50, 20, 50)
-    cg.Position = Vector3.new(10000, 10000, 10000)
-    cg.Anchored = true;
-    cg.Transparency = 0;
-    cg.Material = 'SmoothPlastic'
-    cg.BrickColor = BrickColor.new('Cyan')
-    cg.Parent = workspace
+if a4 then
+    local function ch(ci, cj)
+        local ck, cl = pcall(function()
+            return readfile(cj)
+        end)
+        if ck and not UpdateLib then
+            return loadstring(cl)()
+        else
+            cl = game:HttpGet(ci)
+            writefile(cj, cl)
+            return loadstring(cl)()
+        end
+    end
+    bk = ch(ce .. 'Linoria', 'LinoriaV6.lua')
+    cf = ch(ce .. 'LinoriaThemeManager', 'LinoriaThemeManagerV5.lua')
+    cg = ch(ce .. 'LinoriaSaveManager', 'LinoriaSaveManagerV5.lua')
+else
+    bk = loadstring(game:HttpGet(ce .. 'Linoria'))()
+    cf = loadstring(game:HttpGet(ce .. 'LinoriaThemeManager'))()
+    cg = loadstring(game:HttpGet(ce .. 'LinoriaSaveManager'))()
 end
-local ch;
-local ci;
-local cj;
-ch, cj, ci = bC(bX .. n .. k .. bW .. l .. bY .. bZ .. m)
 a = true;
-function libWarn(msg)
+local function cm(msg)
     warn('[Infinite]: ' .. msg)
 end
-function pcallWithError(ck)
-    local bw, cl = pcall(ck)
-    if not bw and cl then
-        libWarn(cl)
+local function cn(co)
+    local bw, cp = pcall(co)
+    if not bw and cp then
+        cm(cp)
     end
 end
-function libNoti(msg)
+local function cq(msg)
     print(msg)
-    pcallWithError(function()
-        ch:Notify(msg)
+    cn(function()
+        bk:Notify(msg)
     end)
 end
-function setMissionObjective(cm, cn)
-    local P = c.PlayerGui.MissionObjective.MissionObjective.Label;
-    P.Text = cm;
-    P.Overlay.Text = cm;
-    if cn then
-        P.ZIndex = 30;
-        P.Overlay.ZIndex = 31
+local function cr(cs, ct)
+    local H = c.PlayerGui.MissionObjective.MissionObjective.Label;
+    H.Text = cs;
+    H.Overlay.Text = cs;
+    if ct then
+        H.ZIndex = 30;
+        H.Overlay.ZIndex = 31
     end
 end
-function resetMissionObjective()
-    local P = c.PlayerGui.MissionObjective.MissionObjective.Label;
-    P.Text = ''
-    P.Overlay.Text = ''
+local function cu()
+    local H = c.PlayerGui.MissionObjective.MissionObjective.Label;
+    H.Text = ''
+    H.Overlay.Text = ''
 end
-function isRangedClass()
-    return cd[b3] and cd[b3].Type == 'Ranged'
+local function cv()
+    return ca[aZ] and ca[aZ].Type == 'Ranged'
 end
-local co = game:GetService('GuiService')
-local cp;
-cp = co.ErrorMessageChanged:Connect(function(msg)
-    if co:GetErrorCode() == Enum.ConnectionError.DisconnectLuaKick or co:GetErrorCode() ==
-        Enum.ConnectionError.DisconnectConnectionLost or msg:lower():find("exploit") then
-        cp:Disconnect()
-        ai.Kicked = true;
-        save()
-        if msg:lower():find("exploit") then
-            local cq = 'Killaura Delay: ``' .. Options.KillauraDelay.Value .. '``\nClass: ``' .. cd[b3].DisplayName ..
-                           '``\nPing: ``' .. ping2() .. '``'
-            if aw then
-                cq = cq .. '\nCode: ``' .. i .. '``\nMission: ``' .. h .. '``'
-            end
-            cq = cq .. '\n' .. f;
-            request({
-                Url = boink2,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = e:JSONEncode({
-                    ["embeds"] = {{
-                        ["title"] = 'Exploit Kick',
-                        ["description"] = cq,
-                        ["type"] = 'rich',
-                        ["color"] = tonumber(v.LightPink),
-                        ["footer"] = {
-                            ["text"] = utcDateAndTime() .. ' UTC'
-                        }
-                    }}
-                })
-            })
-        end
-        a0:Teleport(ah, c)
-    end
-end)
-local cr = ch:CreateWindow({
-    Title = ' ' .. defniwndwodnwod,
-    Resizable = true,
+local cw = game:GetService('GuiService')
+local cx;
+
+local cz = bk:CreateWindow({
+    Title = bausha,
     Center = false,
     AutoShow = true,
     TabPadding = 8,
-    MenuFadeTime = 0,
-    CornerRadius = 15
+    MenuFadeTime = 0
 })
-local cs = {
-    Main = cr:AddTab('Main'),
-    Sell = cr:AddTab('Sell'),
-    Teleports = cr:AddTab('Teleports'),
-    ['Settings'] = cr:AddTab('Settings')
+local cA = {
+    Main = cz:AddTab('Main'),
+    Sell = cz:AddTab('Sell'),
+    Teleports = cz:AddTab('Teleports'),
+    ['Settings'] = cz:AddTab('Settings')
 }
-local ct = cs.Main:AddLeftTabbox('farmmm')
-local cu = cs.Sell:AddLeftTabbox('selll')
-local cv = cs.Sell:AddRightTabbox('selll2')
-local cw = ct:AddTab('Farm')
-local cx = ct:AddTab('Settings')
-local cy = cu:AddTab('Auto Sell')
-local cz = cv:AddTab('Sell/Recycle Cosmetics')
-local cA = ct:AddTab('Weapons')
-local cB = ct:AddTab('Event')
-local cC = cs.Main:AddRightTabbox('box')
-local cD = cC:AddTab('Visual')
-local cE = cC:AddTab('Webhook')
-local cF = cC:AddTab('Misc')
-local cG = cC:AddTab('Gui')
-local cH = cs.Main:AddRightTabbox('temp')
-local cI = cH:AddTab('Stats')
-local cJ = cs.Teleports:AddLeftGroupbox('Worlds')
-local cK = cs.Teleports:AddRightGroupbox('Towers')
-local cL = cs.Teleports:AddRightGroupbox('Nightmare Dungeons')
-cw:AddToggle('Killaura', {
-    Text = 'Killaura',
-    Default = false
-})
-cw:AddSlider('KillauraDelay', {
-    Text = 'Delay',
-    Default = 0,
-    Min = 0,
-    Max = 1,
-    Rounding = 2,
-    HideMax = true,
-    Compact = true
-})
-cw:AddToggle('Autofarm', {
-    Text = 'Autofarm',
-    Default = false
-})
-cw:AddSlider('Offset', {
-    Text = 'Offset',
-    Default = isRangedClass() and 50 or 6,
-    Min = 0,
-    Max = aw and (isRangedClass() and 75 or 25) or 75,
-    Rounding = 1,
-    Compact = true
-})
-cw:AddSlider('healPercent', {
-    Text = 'Heal At',
-    Default = 30,
-    Min = 0,
-    Max = 100,
-    Rounding = 0,
-    HideMax = true,
-    Compact = true,
-    Suffix = '% HP'
-})
-cw:AddSlider('resumePercent', {
-    Text = 'Resume At',
-    Default = 100,
-    Min = 0,
-    Max = 100,
-    Rounding = 0,
-    HideMax = true,
-    Compact = true,
-    Suffix = '% HP'
-})
-cw:AddToggle('CollectDrops', {
-    Text = 'Collect Drops',
-    Default = false
-})
-cw:AddToggle('RestartDungeon', {
-    Text = 'Restart Dungeon',
-    Default = false
-})
-cw:AddToggle('nightmareLoop', {
-    Text = 'Nightmare Loop',
-    Default = false
-})
-cw:AddToggle('NextDungeon', {
-    Text = 'Next Dungeon',
-    Default = false
-})
-cw:AddToggle('PerkSwitcher', {
-    Text = 'Auto Switch Perks',
-    Default = false,
-    Tooltip = 'Enables Primary Perks on Mobs, and Offhand Perks on Bosses'
-})
-cw:AddToggle('autoEquipBestwWep', {
-    Text = 'Auto Equip Best Weapon/Armor',
-    Default = false
-})
-cw:AddToggle('mobCamera', {
-    Text = 'Mob POV',
-    Default = false
-})
-cw:AddSlider('FastSprint', {
-    Text = 'Sprint Speed',
-    Default = 28,
-    Min = 28,
-    Max = 200,
-    Rounding = 0,
-    Compact = true
-})
-cw:AddButton({
-    Text = 'Restart Dungeon',
-    Func = function()
-        if aw then
-            StartRaid(as, at)
+local cB = cA.Main:AddLeftTabbox('farmmm')
+local cC = cA.Sell:AddLeftTabbox('selll')
+local cD = cA.Sell:AddRightTabbox('selll2')
+local cE = cB:AddTab('Farm')
+local cF = cB:AddTab('Settings')
+local cG = cC:AddTab('Auto Sell')
+local cH = cD:AddTab('Sell/Recycle Cosmetics')
+local cI = cB:AddTab('Weapons')
+local cJ = cB:AddTab('Event')
+local cK = cA.Main:AddRightTabbox('box')
+local cL = cK:AddTab('Visual')
+local cM = cK:AddTab('Webhook')
+local cN = cK:AddTab('Misc')
+local cO = cK:AddTab('Gui')
+local cP = cA.Main:AddRightTabbox('temp')
+local cQ = cP:AddTab('Stats')
+local cR = cA.Teleports:AddLeftGroupbox('Worlds')
+local cS = cA.Teleports:AddRightGroupbox('Towers')
+local cT = cA.Teleports:AddRightGroupbox('Nightmare Dungeons')
+do
+    cE:AddToggle('Killaura', {
+        Text = 'Killaura',
+        Default = false
+    })
+    cE:AddSlider('KillauraDelay', {
+        Text = 'Delay',
+        Default = 0,
+        Min = 0,
+        Max = 1,
+        Rounding = 2,
+        HideMax = true,
+        Compact = true
+    })
+    cE:AddToggle('Autofarm', {
+        Text = 'Autofarm',
+        Default = false
+    })
+    cE:AddSlider('Offset', {
+        Text = 'Offset',
+        Default = cv() and 50 or 6,
+        Min = 0,
+        Max = ao and (cv() and 75 or 25) or 75,
+        Rounding = 1,
+        Compact = true
+    })
+    cE:AddSlider('healPercent', {
+        Text = 'Heal At',
+        Default = 30,
+        Min = 0,
+        Max = 100,
+        Rounding = 0,
+        HideMax = true,
+        Compact = true,
+        Suffix = '% HP'
+    })
+    cE:AddSlider('resumePercent', {
+        Text = 'Resume At',
+        Default = 100,
+        Min = 0,
+        Max = 100,
+        Rounding = 0,
+        HideMax = true,
+        Compact = true,
+        Suffix = '% HP'
+    })
+    cE:AddToggle('CollectDrops', {
+        Text = 'Collect Drops',
+        Default = false
+    })
+    cE:AddToggle('RestartDungeon', {
+        Text = 'Restart Dungeon',
+        Default = false
+    })
+    cE:AddToggle('nightmareLoop', {
+        Text = 'Nightmare Loop',
+        Default = false
+    })
+    cE:AddToggle('NextDungeon', {
+        Text = 'Next Dungeon',
+        Default = false
+    })
+    cE:AddToggle('PerkSwitcher', {
+        Text = 'Auto Switch Perks',
+        Default = false,
+        Tooltip = 'Enables Primary Perks on Mobs, and Offhand Perks on Bosses'
+    })
+    cE:AddToggle('autoEquipBestwWep', {
+        Text = 'Auto Equip Best Weapon/Armor',
+        Default = false
+    })
+    cE:AddToggle('mobCamera', {
+        Text = 'Mob POV',
+        Default = false
+    })
+    cE:AddSlider('FastSprint', {
+        Text = 'Sprint Speed',
+        Default = 28,
+        Min = 28,
+        Max = 200,
+        Rounding = 0,
+        Compact = true
+    })
+    cE:AddButton({
+        Text = 'Restart Dungeon',
+        Func = function()
+            if ao then
+                StartRaid(ak, al)
+            end
+        end,
+        DoubleClick = false
+    })
+    cF:AddSlider('dungeonRestartTimer', {
+        Text = 'Restart Dungeon Delay',
+        Default = 0,
+        Min = 0,
+        Max = 600,
+        Rounding = 0,
+        HideMax = true,
+        Suffix = ' seconds',
+        Compact = true
+    })
+    cF:AddSlider('towerRestartTimer', {
+        Text = 'Restart Tower Delay',
+        Default = 0,
+        Min = 0,
+        Max = 30,
+        Rounding = 0,
+        HideMax = true,
+        Suffix = ' seconds',
+        Compact = true
+    })
+    cF:AddSlider('dungeonStartTimer', {
+        Text = 'Dungeon Start Delay',
+        Default = 0,
+        Min = 0,
+        Max = 600,
+        Rounding = 0,
+        HideMax = true,
+        Suffix = ' seconds',
+        Compact = true
+    })
+    cF:AddSlider('towerStartTimer', {
+        Text = 'Tower Start Delay',
+        Default = 0,
+        Min = 0,
+        Max = 600,
+        Rounding = 0,
+        HideMax = true,
+        Suffix = ' seconds',
+        Compact = true
+    })
+    Options.dungeonStartTimer:OnChanged(function(cU)
+        bh = bh + 1
+    end)
+    Options.towerStartTimer:OnChanged(function(cU)
+        bi = bi + 1
+    end)
+    cF:AddSlider('timeoutTimer', {
+        Text = 'Dungeon Timeout',
+        Default = 2000000000,
+        Min = 10,
+        Max = 2000000000000,
+        Rounding = 0,
+        HideMax = true,
+        Suffix = ' seconds',
+        Tooltip = 'Restart dungeon if no damage has been done within the specified time period',
+        Compact = true
+    })
+    cF:AddToggle('restartAfterFloors', {
+        Text = 'Inf Tower Smart Restart',
+        Tooltip = 'Restarts Infinite Floor after specified amount of floors are completed',
+        Default = false
+    })
+    cF:AddInput('completedInfiniteTowerFloors', {
+        Text = 'Floors',
+        Default = 31,
+        Numeric = true,
+        Finished = true
+    })
+    cF:AddToggle('ignoreCannon', {
+        Text = 'Ignore Cannon (Atlantis Tower)',
+        Default = false
+    })
+    cF:AddToggle('skipScarecrowNm', {
+        Text = 'Skip Scarecrow Defense (NM Loop)',
+        Default = false
+    })
+    cF:AddToggle('rejoinDungeon', {
+        Text = 'Rejoin Last Dungeon',
+        Tooltip = 'Automatically starts the last dungeon started within your desired time limit',
+        Default = false
+    })
+    Toggles.rejoinDungeon:OnChanged(function(cV)
+        aa.RejoinLastDungeon = cV;
+        save()
+    end)
+    local cW = {
+        ['30 minutes'] = 1800,
+        ['3 hours'] = 10800,
+        ['12 hours'] = 43200,
+        ['24 hours'] = 86400,
+        ['Infinite'] = 999999999
+    }
+    cF:AddDropdown('rjdLimit', {
+        Text = 'Rejoin Last Dungeon Limit',
+        Values = {'30 minutes', '3 hours', '12 hours', '24 hours', 'Infinite'},
+        Default = '30 minutes',
+        AllowNull = false,
+        Multi = false
+    })
+    Options.rjdLimit:OnChanged(function(cV)
+        aa.RejoinLastDungeonThreshold = cW[cV]
+        save()
+    end)
+    cF:AddToggle('forceRestartLastTower', {
+        Text = 'Force Restart Last Tower',
+        Tooltip = 'Restart the Tower when going back to town (willingly or by force)',
+        Default = false
+    })
+    Toggles.forceRestartLastTower:OnChanged(function(cV)
+        aa.ForceRestartLastTower = cV;
+        save()
+    end)
+    cF:AddSlider('playerCountKick', {
+        Text = 'Mission PlayerCount Kick',
+        Default = 6,
+        Min = 2,
+        Max = 6,
+        Rounding = 0,
+        HideMax = true,
+        Tooltip = 'Disconnect from the game if player count reaches the threshold in mission',
+        Compact = true
+    })
+    task.spawn(function()
+        while ao do
+            if #b:GetPlayers() >= Options.playerCountKick.Value then
+                task.wait(0.5)
+                c:Kick('Someone might have joined your mission!')
+                break
+            end
+            task.wait()
         end
-    end,
-    DoubleClick = false
-})
-cx:AddSlider('dungeonRestartTimer', {
-    Text = 'Restart Dungeon Delay',
-    Default = 0,
-    Min = 0,
-    Max = 300,
-    Rounding = 0,
-    HideMax = true,
-    Suffix = ' seconds',
-    Compact = true
-})
-cx:AddSlider('towerRestartTimer', {
-    Text = 'Restart Tower Delay',
-    Default = 0,
-    Min = 0,
-    Max = 30,
-    Rounding = 0,
-    HideMax = true,
-    Suffix = ' seconds',
-    Compact = true
-})
-cx:AddSlider('dungeonStartTimer', {
-    Text = 'Dungeon Start Delay',
-    Default = 0,
-    Min = 0,
-    Max = 300,
-    Rounding = 0,
-    HideMax = true,
-    Suffix = ' seconds',
-    Compact = true
-})
-cx:AddSlider('towerStartTimer', {
-    Text = 'Tower Start Delay',
-    Default = 0,
-    Min = 0,
-    Max = 600,
-    Rounding = 0,
-    HideMax = true,
-    Suffix = ' seconds',
-    Compact = true
-})
-Options.dungeonStartTimer:OnChanged(function(cM)
-    bk = bk + 1
-end)
-Options.towerStartTimer:OnChanged(function(cM)
-    bl = bl + 1
-end)
-cx:AddSlider('timeoutTimer', {
-    Text = 'Dungeon Timeout',
-    Default = 120,
-    Min = 10,
-    Max = 300,
-    Rounding = 0,
-    HideMax = true,
-    Suffix = ' seconds',
-    Tooltip = 'Restart dungeon if no damage has been done within the specified time period',
-    Compact = true
-})
-cx:AddToggle('restartAfterFloors', {
-    Text = 'Inf Tower Smart Restart',
-    Tooltip = 'Restarts Infinite Floor after specified amount of floors are completed',
-    Default = false
-})
-cx:AddInput('completedInfiniteTowerFloors', {
-    Text = 'Floors',
-    Default = 31,
-    Numeric = true,
-    Finished = true
-})
-cx:AddToggle('ignoreCannon', {
-    Text = 'Ignore Cannon (Atlantis Tower)',
-    Default = false
-})
-cx:AddToggle('skipScarecrowNm', {
-    Text = 'Skip Scarecrow Defense (NM Loop)',
-    Default = false
-})
-cx:AddToggle('rejoinDungeon', {
-    Text = 'Rejoin Last Dungeon',
-    Tooltip = 'Automatically starts the last dungeon started within your desired time limit',
-    Default = false
-})
-Toggles.rejoinDungeon:OnChanged(function(cc)
-    ai.RejoinLastDungeon = cc;
-    save()
-end)
-local cN = {
-    ['30 minutes'] = 1800,
-    ['3 hours'] = 10800,
-    ['12 hours'] = 43200,
-    ['24 hours'] = 86400,
-    ['Infinite'] = 999999999
-}
-cx:AddDropdown('rjdLimit', {
-    Text = 'Rejoin Last Dungeon Limit',
-    Values = {'30 minutes', '3 hours', '12 hours', '24 hours', 'Infinite'},
-    Default = '30 minutes',
-    AllowNull = false,
-    Multi = false
-})
-Options.rjdLimit:OnChanged(function(cc)
-    ai.RejoinLastDungeonThreshold = cN[cc]
-    save()
-end)
-cx:AddToggle('forceRestartLastTower', {
-    Text = 'Force Restart Last Tower',
-    Tooltip = 'Restart the Tower when going back to town (willingly or by force)',
-    Default = false
-})
-Toggles.forceRestartLastTower:OnChanged(function(cc)
-    ai.ForceRestartLastTower = cc;
-    save()
-end)
-cx:AddSlider('playerCountKick', {
-    Text = 'Mission PlayerCount Kick',
-    Default = 6,
-    Min = 2,
-    Max = 6,
-    Rounding = 0,
-    HideMax = true,
-    Tooltip = 'Disconnect from the game if player count reaches the threshold in mission',
-    Compact = true
-})
-task.spawn(function()
-    while aw do
-        if #b:GetPlayers() >= Options.playerCountKick.Value then
-            task.wait(0.5)
-            c:Kick('Someone might have joined your mission!')
-            break
-        end
-        task.wait()
-    end
-end)
-cA:AddInput('mobWepId', {
-    Numeric = false,
-    Finished = true,
-    Text = 'Current Mob Weapon'
-})
-cA:AddInput('bossWepId', {
-    Numeric = false,
-    Finished = true,
-    Text = 'Current Boss Weapon'
-})
-cA:AddButton({
-    Text = 'Set Current Primary for Mobs',
-    Tooltip = 'Killaura will auto equip this weapon when targeting mobs',
-    Func = function()
-        local cO = aZ and aZ:GetChildren()[1]
-        local cP = cO and cO.ID.Value;
-        if cP then
-            Options.mobWepId:SetValue(cP)
-            libNoti('Set ' .. bJ[cO.Name].DisplayKey .. ' as your Mob weapon!')
-        else
-            libNoti('No suitable Primary Weapon Detected')
-        end
-    end,
-    DoubleClick = false
-})
-cA:AddButton({
-    Text = 'Set Current Primary for Bosses',
-    Tooltip = 'Killaura will auto equip this weapon when targeting bosses',
-    Func = function()
-        local cO = aZ and aZ:GetChildren()[1]
-        local cP = cO and cO.ID.Value;
-        if cP then
-            Options.bossWepId:SetValue(cP)
-            libNoti('Set ' .. bJ[cO.Name].DisplayKey .. ' as your Boss weapon!')
-        else
-            libNoti('No suitable Primary Weapon Detected')
-        end
-    end,
-    DoubleClick = false
-})
-cA:AddButton({
-    Text = 'Reset Selected Weapons',
-    Func = function()
-        Options.mobWepId:SetValue('')
-        Options.bossWepId:SetValue('')
-        libNoti('Selected weapons reset!')
-    end,
-    DoubleClick = false
-})
-cE:AddInput('dungeonHook', {
-    Numeric = false,
-    Finished = true,
-    Text = 'Mission Webhook',
-    Tooltip = 'Put your own webhook link to log mission completions/fails'
-})
-cE:AddInput('drophook', {
-    Numeric = false,
-    Finished = true,
-    Text = 'Drop Webhook',
-    Tooltip = 'Put your own webhook link to log T5 drops'
-})
-cE:AddInput('dropHookRoleId', {
-    Numeric = false,
-    Finished = true,
-    Text = 'Custom Role ID for DropHook',
-    Tooltip = 'Mention your chosen role instead of @everyone when getting a desired perk T5'
-})
-cE:AddToggle('anonHook', {
-    Text = 'Anonymous Webhook',
-    Tooltip = "Won't show your User Info in the webhook",
-    Default = false
-})
-cy:AddDropdown('AutoSellTbl', {
-    Text = 'Auto Sell Tiers',
-    Values = {1, 2, 3, 4, 5},
-    AllowNull = true,
-    Multi = true
-})
-cy:AddButton({
-    Text = 'Sell All',
-    Tooltip = 'Sells all weapons and armors of selected tiers',
-    Func = function()
-        local cQ = {}
-        for K, L in bE:GetChildren() do
-            local cR = bJ[L.Name]
-            if (cR.Type == 'Weapon' or cR.Type == 'Armor') and Options.AutoSellTbl.Value[bT:GetItemTier(L)] and
-                not L:FindFirstChild('Locked') then
-                table.insert(cQ, L)
+    end)
+    cI:AddInput('mobWepId', {
+        Numeric = false,
+        Finished = true,
+        Text = 'Current Mob Weapon'
+    })
+    cI:AddInput('bossWepId', {
+        Numeric = false,
+        Finished = true,
+        Text = 'Current Boss Weapon'
+    })
+    cI:AddButton({
+        Text = 'Set Current Primary for Mobs',
+        Tooltip = 'Killaura will auto equip this weapon when targeting mobs',
+        Func = function()
+            local cX = aT and aT:GetChildren()[1]
+            local cY = cX and cX.ID.Value;
+            if cY then
+                Options.mobWepId:SetValue(cY)
+                cq('Set ' .. bL[cX.Name].DisplayKey .. ' as your Mob weapon!')
+            else
+                cq('No suitable Primary Weapon Detected')
+            end
+        end,
+        DoubleClick = false
+    })
+    cI:AddButton({
+        Text = 'Set Current Primary for Bosses',
+        Tooltip = 'Killaura will auto equip this weapon when targeting bosses',
+        Func = function()
+            local cX = aT and aT:GetChildren()[1]
+            local cY = cX and cX.ID.Value;
+            if cY then
+                Options.bossWepId:SetValue(cY)
+                cq('Set ' .. bL[cX.Name].DisplayKey .. ' as your Boss weapon!')
+            else
+                cq('No suitable Primary Weapon Detected')
+            end
+        end,
+        DoubleClick = false
+    })
+    cI:AddButton({
+        Text = 'Reset Selected Weapons',
+        Func = function()
+            Options.mobWepId:SetValue('')
+            Options.bossWepId:SetValue('')
+            cq('Selected weapons reset!')
+        end,
+        DoubleClick = false
+    })
+    cM:AddInput('dungeonHook', {
+        Numeric = false,
+        Finished = true,
+        Text = 'Mission Webhook',
+        Tooltip = 'Put your own webhook link to log mission completions/fails'
+    })
+    cM:AddInput('drophook', {
+        Numeric = false,
+        Finished = true,
+        Text = 'Drop Webhook',
+        Tooltip = 'Put your own webhook link to log T5 drops'
+    })
+    cM:AddInput('dropHookRoleId', {
+        Numeric = false,
+        Finished = true,
+        Text = 'Custom Role ID for DropHook',
+        Tooltip = 'Mention your chosen role instead of @everyone when getting a desired perk T5'
+    })
+    cM:AddToggle('anonHook', {
+        Text = 'Anonymous Webhook',
+        Tooltip = "Won't show your User Info in the webhook",
+        Default = false
+    })
+end
+do
+    cG:AddDropdown('AutoSellTbl', {
+        Text = 'Auto Sell Tiers',
+        Values = {1, 2, 3, 4, 5},
+        AllowNull = true,
+        Multi = true
+    })
+    cG:AddButton({
+        Text = 'Sell All',
+        Tooltip = 'Sells all weapons and armors of selected tiers',
+        Func = function()
+            local cZ = {}
+            for B, C in pairs(bF:GetChildren()) do
+                local c_ = bL[C.Name]
+                if (c_.Type == 'Weapon' or c_.Type == 'Armor') and Options.AutoSellTbl.Value[bZ:GetItemTier(C)] and
+                    not C:FindFirstChild('Locked') then
+                    table.insert(cZ, C)
+                end
+            end
+            if #cZ > 0 then
+                cq('Sold ' .. #cZ .. ' items')
+                S.Drops.SellItems:InvokeServer(cZ)
+            end
+        end,
+        DoubleClick = true
+    })
+    cG:AddToggle('autoSellAll', {
+        Text = 'Auto Sell All',
+        Tooltip = "Failsafe incase auto sell doesn't sell in time at the end of a mission",
+        Default = false
+    })
+    Toggles.autoSellAll:OnChanged(function(cU)
+        if cU then
+            local cZ = {}
+            for B, C in pairs(bF:GetChildren()) do
+                local c_ = bL[C.Name]
+                if (c_.Type == 'Weapon' or c_.Type == 'Armor') and Options.AutoSellTbl.Value[bZ:GetItemTier(C)] and
+                    not C:FindFirstChild('Locked') then
+                    table.insert(cZ, C)
+                end
+            end
+            if #cZ > 0 then
+                cq('Sold ' .. #cZ .. ' items')
+                S.Drops.SellItems:InvokeServer(cZ)
             end
         end
-        if #cQ > 0 then
-            libNoti('Sold ' .. #cQ .. ' items')
-            _.Drops.SellItems:InvokeServer(cQ)
-        end
-    end,
-    DoubleClick = true
-})
-cy:AddToggle('autoSellAll', {
-    Text = 'Auto Sell All',
-    Tooltip = "Failsafe incase auto sell doesn't sell in time at the end of a mission",
-    Default = false
-})
-Toggles.autoSellAll:OnChanged(function(cM)
-    if cM then
-        local cQ = {}
-        for K, L in bE:GetChildren() do
-            local cR = bJ[L.Name]
-            if (cR.Type == 'Weapon' or cR.Type == 'Armor') and Options.AutoSellTbl.Value[bT:GetItemTier(L)] and
-                not L:FindFirstChild('Locked') then
-                table.insert(cQ, L)
+    end)
+    cG:AddToggle('autoSellEggs', {
+        Text = 'Auto Sell Eggs',
+        Default = false,
+        Tooltip = 'Works in Event Wheel Hub also'
+    })
+    cG:AddDivider()
+    cG:AddToggle('smartPerkSell', {
+        Text = 'Smart T5 Auto Sell',
+        Default = false,
+        Tooltip = 'Do NOT enable this until you have turned all of your desired perks slider atleast 1 higher than lowest value'
+    })
+    local d0 = {}
+    for B, C in pairs(bK) do
+        table.insert(d0, C.DisplayName)
+    end
+    table.sort(d0)
+    for B = 1, #d0 do
+        for d1, d2 in pairs(bK) do
+            if d0[B] == d2.DisplayName then
+                cG:AddSlider(d1, {
+                    Text = d2.DisplayName,
+                    Default = math.round(d2.StatRange[1] * 100),
+                    Min = math.round(d2.StatRange[1] * 100),
+                    Max = math.round(d2.StatRange[2] * 100),
+                    Rounding = 0,
+                    HideMax = true,
+                    Compact = true,
+                    Suffix = '%'
+                })
             end
         end
-        if #cQ > 0 then
-            libNoti('Sold ' .. #cQ .. ' items')
-            _.Drops.SellItems:InvokeServer(cQ)
+    end
+end
+do
+    local d3 = {
+        GigaSlimeHead = 'Giga Slime Head',
+        NightTerrorHood = 'Night Terror Hood',
+        FlameDemonHood = 'Flame Demon Hood',
+        SpartanHelmet = 'Mezuvian Helmet',
+        AngelHood = 'Angel Hood',
+        AngelHalo = 'Angel Halo',
+        AngelicWings = 'Angelic Wings',
+        TaurhaStaff = "Taurha's Staff",
+        AetherCrown = 'Aether Crown',
+        W9T5Helmet = 'Aether Helmet'
+    }
+    local d4 = {}
+    for B, C in d3 do
+        table.insert(d4, C)
+    end
+    table.sort(d4)
+    cH:AddDropdown('selectedCosmetics', {
+        Text = 'Select Cosmetics',
+        Values = d4,
+        AllowNull = true,
+        Multi = true
+    })
+    local d5 = {
+        FrostyScarf = 'Frosty Scarf',
+        WolfspiritHelmet = 'Wolfspirit Helmet',
+        WolfspiritArmor = 'Wolfspirit Armor',
+        FestiveDress = 'Festive Dress',
+        RamHorns = 'Ram Horns',
+        CandycaneAntlers = 'Candycane Antlers',
+        CarrotNose = 'Carrot Nose',
+        FluffyJacket = 'Fluffy Jacket'
+    }
+    local d4 = {}
+    for B, C in d5 do
+        table.insert(d4, C)
+    end
+    table.sort(d4)
+    cH:AddDropdown('selectedWheelCosmetics', {
+        Text = 'Select Event Cosmetics',
+        Values = d4,
+        AllowNull = true,
+        Multi = true
+    })
+    local d6 = {{
+        Hex = '#FF1337',
+        Name = 'Rainbow',
+        SpecialType = true
+    }, {
+        Hex = '#DDEADD',
+        Name = 'Ghoul',
+        SpecialType = true
+    }, {
+        Hex = '#11CCEE',
+        Name = 'Ice',
+        SpecialType = true
+    }, {
+        Hex = '#FFADED',
+        Name = 'Faded',
+        SpecialType = true
+    }, {
+        Hex = '#F0F8FF',
+        Name = 'Alice Blue'
+    }, {
+        Hex = '#FAEBD7',
+        Name = 'Antique White'
+    }, {
+        Hex = '#00FFFF',
+        Name = 'Aqua'
+    }, {
+        Hex = '#7FFFD4',
+        Name = 'Aquamarine'
+    }, {
+        Hex = '#F0FFFF',
+        Name = 'Azure'
+    }, {
+        Hex = '#F5F5DC',
+        Name = 'Beige'
+    }, {
+        Hex = '#FFE4C4',
+        Name = 'Bisque'
+    }, {
+        Hex = '#000000',
+        Name = 'Black'
+    }, {
+        Hex = '#FFEBCD',
+        Name = 'Blanched Almond'
+    }, {
+        Hex = '#0000FF',
+        Name = 'Blue'
+    }, {
+        Hex = '#8A2BE2',
+        Name = 'Blue Violet'
+    }, {
+        Hex = '#A52A2A',
+        Name = 'Brown'
+    }, {
+        Hex = '#DEB887',
+        Name = 'Burly Wood'
+    }, {
+        Hex = '#5F9EA0',
+        Name = 'Cadet Blue'
+    }, {
+        Hex = '#7FFF00',
+        Name = 'Chartreuse'
+    }, {
+        Hex = '#D2691E',
+        Name = 'Chocolate'
+    }, {
+        Hex = '#FF7F50',
+        Name = 'Coral'
+    }, {
+        Hex = '#6495ED',
+        Name = 'Cornflower Blue'
+    }, {
+        Hex = '#FFF8DC',
+        Name = 'Cornsilk'
+    }, {
+        Hex = '#DC143C',
+        Name = 'Crimson'
+    }, {
+        Hex = '#00FFFF',
+        Name = 'Cyan'
+    }, {
+        Hex = '#00008B',
+        Name = 'Dark Blue'
+    }, {
+        Hex = '#008B8B',
+        Name = 'Dark Cyan'
+    }, {
+        Hex = '#B8860B',
+        Name = 'Dark Goldenrod'
+    }, {
+        Hex = '#A9A9A9',
+        Name = 'Dark Gray'
+    }, {
+        Hex = '#006400',
+        Name = 'Dark Green'
+    }, {
+        Hex = '#BDB76B',
+        Name = 'Dark Khaki'
+    }, {
+        Hex = '#8B008B',
+        Name = 'Dark Magenta'
+    }, {
+        Hex = '#556B2F',
+        Name = 'Dark Olive Green'
+    }, {
+        Hex = '#FF8C00',
+        Name = 'Dark Orange'
+    }, {
+        Hex = '#9932CC',
+        Name = 'Dark Orchid'
+    }, {
+        Hex = '#8B0000',
+        Name = 'Dark Red'
+    }, {
+        Hex = '#E9967A',
+        Name = 'Dark Salmon'
+    }, {
+        Hex = '#8FBC8F',
+        Name = 'Dark Sea Green'
+    }, {
+        Hex = '#483D8B',
+        Name = 'Dark Slate Blue'
+    }, {
+        Hex = '#2F4F4F',
+        Name = 'Dark Slate Gray'
+    }, {
+        Hex = '#00CED1',
+        Name = 'Dark Turquoise'
+    }, {
+        Hex = '#9400D3',
+        Name = 'Dark Violet'
+    }, {
+        Hex = '#FF1493',
+        Name = 'Deep Pink'
+    }, {
+        Hex = '#00B7EB',
+        Name = 'Deep Sky Blue'
+    }, {
+        Hex = '#696969',
+        Name = 'Dim Gray'
+    }, {
+        Hex = '#1E90FF',
+        Name = 'Dodger Blue'
+    }, {
+        Hex = '#B22222',
+        Name = 'Firebrick'
+    }, {
+        Hex = '#FFFAF0',
+        Name = 'Floral White'
+    }, {
+        Hex = '#228B22',
+        Name = 'Forest Green'
+    }, {
+        Hex = '#FF00FF',
+        Name = 'Fuchsia'
+    }, {
+        Hex = '#DCDCDC',
+        Name = 'Gainsboro'
+    }, {
+        Hex = '#F8F8FF',
+        Name = 'Ghost White'
+    }, {
+        Hex = '#FFD700',
+        Name = 'Gold'
+    }, {
+        Hex = '#DAA520',
+        Name = 'Goldenrod'
+    }, {
+        Hex = '#808080',
+        Name = 'Gray'
+    }, {
+        Hex = '#008000',
+        Name = 'Green'
+    }, {
+        Hex = '#ADFF2F',
+        Name = 'Green Yellow'
+    }, {
+        Hex = '#F0FFF0',
+        Name = 'Honeydew'
+    }, {
+        Hex = '#FF69B4',
+        Name = 'Hot Pink'
+    }, {
+        Hex = '#CD5C5C',
+        Name = 'Indian Red'
+    }, {
+        Hex = '#4B0082',
+        Name = 'Indigo'
+    }, {
+        Hex = '#FFFFF0',
+        Name = 'Ivory'
+    }, {
+        Hex = '#F0E68C',
+        Name = 'Khaki'
+    }, {
+        Hex = '#E6E6FA',
+        Name = 'Lavender'
+    }, {
+        Hex = '#FFF0F5',
+        Name = 'Lavender Blush'
+    }, {
+        Hex = '#7CFC00',
+        Name = 'Lawn Green'
+    }, {
+        Hex = '#FFFACD',
+        Name = 'Lemon Chiffon'
+    }, {
+        Hex = '#ADD8E6',
+        Name = 'Light Blue'
+    }, {
+        Hex = '#F08080',
+        Name = 'Light Coral'
+    }, {
+        Hex = '#E0FFFF',
+        Name = 'Light Cyan'
+    }, {
+        Hex = '#FAFAD2',
+        Name = 'Light Goldenrod Yellow'
+    }, {
+        Hex = '#D3D3D3',
+        Name = 'Light Gray'
+    }, {
+        Hex = '#90EE90',
+        Name = 'Light Green'
+    }, {
+        Hex = '#FFB6C1',
+        Name = 'Light Pink'
+    }, {
+        Hex = '#FFA07A',
+        Name = 'Light Salmon'
+    }, {
+        Hex = '#20B2AA',
+        Name = 'Light Sea Green'
+    }, {
+        Hex = '#87CEFA',
+        Name = 'Light Sky Blue'
+    }, {
+        Hex = '#778899',
+        Name = 'Light Slate Gray'
+    }, {
+        Hex = '#B0C4DE',
+        Name = 'Light Steel Blue'
+    }, {
+        Hex = '#FFFFE0',
+        Name = 'Light Yellow'
+    }, {
+        Hex = '#00FF00',
+        Name = 'Lime'
+    }, {
+        Hex = '#32CD32',
+        Name = 'Lime Green'
+    }, {
+        Hex = '#FAF0E6',
+        Name = 'Linen'
+    }, {
+        Hex = '#FF00FF',
+        Name = 'Magenta'
+    }, {
+        Hex = '#800000',
+        Name = 'Maroon'
+    }, {
+        Hex = '#66CDAA',
+        Name = 'Medium Aquamarine'
+    }, {
+        Hex = '#0000CD',
+        Name = 'Medium Blue'
+    }, {
+        Hex = '#BA55D3',
+        Name = 'Medium Orchid'
+    }, {
+        Hex = '#9370DB',
+        Name = 'Medium Purple'
+    }, {
+        Hex = '#3CB371',
+        Name = 'Medium Sea Green'
+    }, {
+        Hex = '#7B68EE',
+        Name = 'Medium Slate Blue'
+    }, {
+        Hex = '#00FA9A',
+        Name = 'Medium Spring Green'
+    }, {
+        Hex = '#48D1CC',
+        Name = 'Medium Turquoise'
+    }, {
+        Hex = '#C71585',
+        Name = 'Medium Violet Red'
+    }, {
+        Hex = '#191970',
+        Name = 'Midnight Blue'
+    }, {
+        Hex = '#F5FFFA',
+        Name = 'Mint Cream'
+    }, {
+        Hex = '#FFE4E1',
+        Name = 'Misty Rose'
+    }, {
+        Hex = '#FFE4B5',
+        Name = 'Moccasin'
+    }, {
+        Hex = '#FFDEAD',
+        Name = 'Navajo White'
+    }, {
+        Hex = '#000080',
+        Name = 'Navy'
+    }, {
+        Hex = '#FDF5E6',
+        Name = 'Old Lace'
+    }, {
+        Hex = '#808000',
+        Name = 'Olive'
+    }, {
+        Hex = '#6B8E23',
+        Name = 'Olive Drab'
+    }, {
+        Hex = '#FFA500',
+        Name = 'Orange'
+    }, {
+        Hex = '#FF4500',
+        Name = 'Orange Red'
+    }, {
+        Hex = '#DA70D6',
+        Name = 'Orchid'
+    }, {
+        Hex = '#EEE8AA',
+        Name = 'Pale Goldenrod'
+    }, {
+        Hex = '#98FB98',
+        Name = 'Pale Green'
+    }, {
+        Hex = '#AFEEEE',
+        Name = 'Pale Turquoise'
+    }, {
+        Hex = '#DB7093',
+        Name = 'Pale Violet Red'
+    }, {
+        Hex = '#FFEFD5',
+        Name = 'Papaya Whip'
+    }, {
+        Hex = '#FFDAB9',
+        Name = 'Peach Puff'
+    }, {
+        Hex = '#CD853F',
+        Name = 'Peru'
+    }, {
+        Hex = '#FFC0CB',
+        Name = 'Pink'
+    }, {
+        Hex = '#DDA0DD',
+        Name = 'Plum'
+    }, {
+        Hex = '#B0E0E6',
+        Name = 'Powder Blue'
+    }, {
+        Hex = '#800080',
+        Name = 'Purple'
+    }, {
+        Hex = '#FF0000',
+        Name = 'Red'
+    }, {
+        Hex = '#BC8F8F',
+        Name = 'Rosy Brown'
+    }, {
+        Hex = '#4169E1',
+        Name = 'Royal Blue'
+    }, {
+        Hex = '#8B4513',
+        Name = 'Saddle Brown'
+    }, {
+        Hex = '#FA8072',
+        Name = 'Salmon'
+    }, {
+        Hex = '#F4A460',
+        Name = 'Sandy Brown'
+    }, {
+        Hex = '#2E8B57',
+        Name = 'Sea Green'
+    }, {
+        Hex = '#FFF5EE',
+        Name = 'Sea Shell'
+    }, {
+        Hex = '#A0522D',
+        Name = 'Sienna'
+    }, {
+        Hex = '#C0C0C0',
+        Name = 'Silver'
+    }, {
+        Hex = '#87CEEB',
+        Name = 'Sky Blue'
+    }, {
+        Hex = '#6A5ACD',
+        Name = 'Slate Blue'
+    }, {
+        Hex = '#708090',
+        Name = 'Slate Gray'
+    }, {
+        Hex = '#FFFAFA',
+        Name = 'Snow'
+    }, {
+        Hex = '#00FF7F',
+        Name = 'Spring Green'
+    }, {
+        Hex = '#4682B4',
+        Name = 'Steel Blue'
+    }, {
+        Hex = '#D2B48C',
+        Name = 'Tan'
+    }, {
+        Hex = '#008080',
+        Name = 'Teal'
+    }, {
+        Hex = '#D8BFD8',
+        Name = 'Thistle'
+    }, {
+        Hex = '#FF6347',
+        Name = 'Tomato'
+    }, {
+        Hex = '#40E0D0',
+        Name = 'Turquoise'
+    }, {
+        Hex = '#EE82EE',
+        Name = 'Violet'
+    }, {
+        Hex = '#F5DEB3',
+        Name = 'Wheat'
+    }, {
+        Hex = '#FFFFFF',
+        Name = 'White'
+    }, {
+        Hex = '#F5F5F5',
+        Name = 'White Smoke'
+    }, {
+        Hex = '#FFFF00',
+        Name = 'Yellow'
+    }, {
+        Hex = '#9ACD32',
+        Name = 'Yellow Green'
+    }}
+    local d4 = {}
+    for B, C in d6 do
+        table.insert(d4, C.Name)
+    end
+    table.sort(d4)
+    cH:AddDropdown('selectedDyes', {
+        Text = 'Select Desired Dyes',
+        Tooltip = "Event wheel items with these dyes or close to these dyes won't be sold/recycled",
+        Values = d4,
+        AllowNull = true,
+        Default = {'Rainbow', 'Ghoul', 'Ice', 'Faded', 'Black', 'White'},
+        Multi = true
+    })
+    cH:AddSlider('colorDistanceThreshold', {
+        Text = 'Color Distance Threshold',
+        Tooltip = 'Keep dyes that are close to your desired dyes',
+        Default = 100,
+        Min = 0,
+        Max = 200,
+        Rounding = 0,
+        HideMax = true,
+        Compact = true
+    })
+    cH:AddToggle('autoSellCosmetics', {
+        Text = 'Auto Sell Cosmetics',
+        Default = false
+    })
+    Toggles.autoSellCosmetics:OnChanged(function(cU)
+        if cU and Toggles.autoRecycleCosmetics.Value then
+            Toggles.autoRecycleCosmetics:SetValue(false)
         end
-    end
-end)
-cy:AddToggle('autoSellEggs', {
-    Text = 'Auto Sell Eggs',
-    Default = false,
-    Tooltip = 'Works in Event Wheel Hub also'
-})
-cy:AddDivider()
-cy:AddToggle('smartPerkSell', {
-    Text = 'Smart T5 Auto Sell',
-    Default = false,
-    Tooltip = 'Do NOT enable this until you have turned all of your desired perks slider atleast 1 higher than lowest value'
-})
-local cS = {}
-for K, L in bI do
-    table.insert(cS, L.DisplayName)
-end
-table.sort(cS)
-for K = 1, #cS do
-    for cT, cU in bI do
-        if cS[K] == cU.DisplayName then
-            cy:AddSlider(cT, {
-                Text = cU.DisplayName,
-                Default = math.round(cU.StatRange[1] * 100),
-                Min = math.round(cU.StatRange[1] * 100),
-                Max = math.round(cU.StatRange[2] * 100),
-                Rounding = 0,
-                HideMax = true,
-                Compact = true,
-                Suffix = '%'
-            })
+    end)
+    cH:AddToggle('autoRecycleCosmetics', {
+        Text = 'Auto Recycle Cosmetics',
+        Default = false
+    })
+    Toggles.autoRecycleCosmetics:OnChanged(function(cU)
+        if cU and Toggles.autoSellCosmetics.Value then
+            Toggles.autoSellCosmetics:SetValue(false)
         end
+    end)
+    local function d7(d8)
+        local d9 = math.floor(d8.R * 255 + 0.5)
+        local da = math.floor(d8.G * 255 + 0.5)
+        local db = math.floor(d8.B * 255 + 0.5)
+        return string.format("#%02X%02X%02X", d9, da, db)
     end
-end
-local cV = {
-    GigaSlimeHead = 'Giga Slime Head',
-    NightTerrorHood = 'Night Terror Hood',
-    FlameDemonHood = 'Flame Demon Hood',
-    SpartanHelmet = 'Mezuvian Helmet',
-    AngelHood = 'Angel Hood',
-    AngelHalo = 'Angel Halo',
-    AngelicWings = 'Angelic Wings',
-    TaurhaStaff = "Taurha's Staff",
-    AetherCrown = 'Aether Crown',
-    W9T5Helmet = 'Aether Helmet'
-}
-local cW = {}
-for K, L in cV do
-    table.insert(cW, L)
-end
-table.sort(cW)
-cz:AddDropdown('selectedCosmetics', {
-    Text = 'Select Cosmetics',
-    Values = cW,
-    AllowNull = true,
-    Multi = true
-})
-local cX = {
-    FrostyScarf = 'Frosty Scarf',
-    WolfspiritHelmet = 'Wolfspirit Helmet',
-    WolfspiritArmor = 'Wolfspirit Armor',
-    FestiveDress = 'Festive Dress',
-    RamHorns = 'Ram Horns',
-    CandycaneAntlers = 'Candycane Antlers',
-    CarrotNose = 'Carrot Nose',
-    FluffyJacket = 'Fluffy Jacket'
-}
-local cW = {}
-for K, L in cX do
-    table.insert(cW, L)
-end
-table.sort(cW)
-cz:AddDropdown('selectedWheelCosmetics', {
-    Text = 'Select Event Cosmetics',
-    Values = cW,
-    AllowNull = true,
-    Multi = true
-})
-local cY = {{
-    Hex = '#FF1337',
-    Name = 'Rainbow',
-    SpecialType = true
-}, {
-    Hex = '#DDEADD',
-    Name = 'Ghoul',
-    SpecialType = true
-}, {
-    Hex = '#11CCEE',
-    Name = 'Ice',
-    SpecialType = true
-}, {
-    Hex = '#FFADED',
-    Name = 'Faded',
-    SpecialType = true
-}, {
-    Hex = '#F0F8FF',
-    Name = 'Alice Blue'
-}, {
-    Hex = '#FAEBD7',
-    Name = 'Antique White'
-}, {
-    Hex = '#00FFFF',
-    Name = 'Aqua'
-}, {
-    Hex = '#7FFFD4',
-    Name = 'Aquamarine'
-}, {
-    Hex = '#F0FFFF',
-    Name = 'Azure'
-}, {
-    Hex = '#F5F5DC',
-    Name = 'Beige'
-}, {
-    Hex = '#FFE4C4',
-    Name = 'Bisque'
-}, {
-    Hex = '#000000',
-    Name = 'Black'
-}, {
-    Hex = '#FFEBCD',
-    Name = 'Blanched Almond'
-}, {
-    Hex = '#0000FF',
-    Name = 'Blue'
-}, {
-    Hex = '#8A2BE2',
-    Name = 'Blue Violet'
-}, {
-    Hex = '#A52A2A',
-    Name = 'Brown'
-}, {
-    Hex = '#DEB887',
-    Name = 'Burly Wood'
-}, {
-    Hex = '#5F9EA0',
-    Name = 'Cadet Blue'
-}, {
-    Hex = '#7FFF00',
-    Name = 'Chartreuse'
-}, {
-    Hex = '#D2691E',
-    Name = 'Chocolate'
-}, {
-    Hex = '#FF7F50',
-    Name = 'Coral'
-}, {
-    Hex = '#6495ED',
-    Name = 'Cornflower Blue'
-}, {
-    Hex = '#FFF8DC',
-    Name = 'Cornsilk'
-}, {
-    Hex = '#DC143C',
-    Name = 'Crimson'
-}, {
-    Hex = '#00FFFF',
-    Name = 'Cyan'
-}, {
-    Hex = '#00008B',
-    Name = 'Dark Blue'
-}, {
-    Hex = '#008B8B',
-    Name = 'Dark Cyan'
-}, {
-    Hex = '#B8860B',
-    Name = 'Dark Goldenrod'
-}, {
-    Hex = '#A9A9A9',
-    Name = 'Dark Gray'
-}, {
-    Hex = '#006400',
-    Name = 'Dark Green'
-}, {
-    Hex = '#BDB76B',
-    Name = 'Dark Khaki'
-}, {
-    Hex = '#8B008B',
-    Name = 'Dark Magenta'
-}, {
-    Hex = '#556B2F',
-    Name = 'Dark Olive Green'
-}, {
-    Hex = '#FF8C00',
-    Name = 'Dark Orange'
-}, {
-    Hex = '#9932CC',
-    Name = 'Dark Orchid'
-}, {
-    Hex = '#8B0000',
-    Name = 'Dark Red'
-}, {
-    Hex = '#E9967A',
-    Name = 'Dark Salmon'
-}, {
-    Hex = '#8FBC8F',
-    Name = 'Dark Sea Green'
-}, {
-    Hex = '#483D8B',
-    Name = 'Dark Slate Blue'
-}, {
-    Hex = '#2F4F4F',
-    Name = 'Dark Slate Gray'
-}, {
-    Hex = '#00CED1',
-    Name = 'Dark Turquoise'
-}, {
-    Hex = '#9400D3',
-    Name = 'Dark Violet'
-}, {
-    Hex = '#FF1493',
-    Name = 'Deep Pink'
-}, {
-    Hex = '#00B7EB',
-    Name = 'Deep Sky Blue'
-}, {
-    Hex = '#696969',
-    Name = 'Dim Gray'
-}, {
-    Hex = '#1E90FF',
-    Name = 'Dodger Blue'
-}, {
-    Hex = '#B22222',
-    Name = 'Firebrick'
-}, {
-    Hex = '#FFFAF0',
-    Name = 'Floral White'
-}, {
-    Hex = '#228B22',
-    Name = 'Forest Green'
-}, {
-    Hex = '#FF00FF',
-    Name = 'Fuchsia'
-}, {
-    Hex = '#DCDCDC',
-    Name = 'Gainsboro'
-}, {
-    Hex = '#F8F8FF',
-    Name = 'Ghost White'
-}, {
-    Hex = '#FFD700',
-    Name = 'Gold'
-}, {
-    Hex = '#DAA520',
-    Name = 'Goldenrod'
-}, {
-    Hex = '#808080',
-    Name = 'Gray'
-}, {
-    Hex = '#008000',
-    Name = 'Green'
-}, {
-    Hex = '#ADFF2F',
-    Name = 'Green Yellow'
-}, {
-    Hex = '#F0FFF0',
-    Name = 'Honeydew'
-}, {
-    Hex = '#FF69B4',
-    Name = 'Hot Pink'
-}, {
-    Hex = '#CD5C5C',
-    Name = 'Indian Red'
-}, {
-    Hex = '#4B0082',
-    Name = 'Indigo'
-}, {
-    Hex = '#FFFFF0',
-    Name = 'Ivory'
-}, {
-    Hex = '#F0E68C',
-    Name = 'Khaki'
-}, {
-    Hex = '#E6E6FA',
-    Name = 'Lavender'
-}, {
-    Hex = '#FFF0F5',
-    Name = 'Lavender Blush'
-}, {
-    Hex = '#7CFC00',
-    Name = 'Lawn Green'
-}, {
-    Hex = '#FFFACD',
-    Name = 'Lemon Chiffon'
-}, {
-    Hex = '#ADD8E6',
-    Name = 'Light Blue'
-}, {
-    Hex = '#F08080',
-    Name = 'Light Coral'
-}, {
-    Hex = '#E0FFFF',
-    Name = 'Light Cyan'
-}, {
-    Hex = '#FAFAD2',
-    Name = 'Light Goldenrod Yellow'
-}, {
-    Hex = '#D3D3D3',
-    Name = 'Light Gray'
-}, {
-    Hex = '#90EE90',
-    Name = 'Light Green'
-}, {
-    Hex = '#FFB6C1',
-    Name = 'Light Pink'
-}, {
-    Hex = '#FFA07A',
-    Name = 'Light Salmon'
-}, {
-    Hex = '#20B2AA',
-    Name = 'Light Sea Green'
-}, {
-    Hex = '#87CEFA',
-    Name = 'Light Sky Blue'
-}, {
-    Hex = '#778899',
-    Name = 'Light Slate Gray'
-}, {
-    Hex = '#B0C4DE',
-    Name = 'Light Steel Blue'
-}, {
-    Hex = '#FFFFE0',
-    Name = 'Light Yellow'
-}, {
-    Hex = '#00FF00',
-    Name = 'Lime'
-}, {
-    Hex = '#32CD32',
-    Name = 'Lime Green'
-}, {
-    Hex = '#FAF0E6',
-    Name = 'Linen'
-}, {
-    Hex = '#FF00FF',
-    Name = 'Magenta'
-}, {
-    Hex = '#800000',
-    Name = 'Maroon'
-}, {
-    Hex = '#66CDAA',
-    Name = 'Medium Aquamarine'
-}, {
-    Hex = '#0000CD',
-    Name = 'Medium Blue'
-}, {
-    Hex = '#BA55D3',
-    Name = 'Medium Orchid'
-}, {
-    Hex = '#9370DB',
-    Name = 'Medium Purple'
-}, {
-    Hex = '#3CB371',
-    Name = 'Medium Sea Green'
-}, {
-    Hex = '#7B68EE',
-    Name = 'Medium Slate Blue'
-}, {
-    Hex = '#00FA9A',
-    Name = 'Medium Spring Green'
-}, {
-    Hex = '#48D1CC',
-    Name = 'Medium Turquoise'
-}, {
-    Hex = '#C71585',
-    Name = 'Medium Violet Red'
-}, {
-    Hex = '#191970',
-    Name = 'Midnight Blue'
-}, {
-    Hex = '#F5FFFA',
-    Name = 'Mint Cream'
-}, {
-    Hex = '#FFE4E1',
-    Name = 'Misty Rose'
-}, {
-    Hex = '#FFE4B5',
-    Name = 'Moccasin'
-}, {
-    Hex = '#FFDEAD',
-    Name = 'Navajo White'
-}, {
-    Hex = '#000080',
-    Name = 'Navy'
-}, {
-    Hex = '#FDF5E6',
-    Name = 'Old Lace'
-}, {
-    Hex = '#808000',
-    Name = 'Olive'
-}, {
-    Hex = '#6B8E23',
-    Name = 'Olive Drab'
-}, {
-    Hex = '#FFA500',
-    Name = 'Orange'
-}, {
-    Hex = '#FF4500',
-    Name = 'Orange Red'
-}, {
-    Hex = '#DA70D6',
-    Name = 'Orchid'
-}, {
-    Hex = '#EEE8AA',
-    Name = 'Pale Goldenrod'
-}, {
-    Hex = '#98FB98',
-    Name = 'Pale Green'
-}, {
-    Hex = '#AFEEEE',
-    Name = 'Pale Turquoise'
-}, {
-    Hex = '#DB7093',
-    Name = 'Pale Violet Red'
-}, {
-    Hex = '#FFEFD5',
-    Name = 'Papaya Whip'
-}, {
-    Hex = '#FFDAB9',
-    Name = 'Peach Puff'
-}, {
-    Hex = '#CD853F',
-    Name = 'Peru'
-}, {
-    Hex = '#FFC0CB',
-    Name = 'Pink'
-}, {
-    Hex = '#DDA0DD',
-    Name = 'Plum'
-}, {
-    Hex = '#B0E0E6',
-    Name = 'Powder Blue'
-}, {
-    Hex = '#800080',
-    Name = 'Purple'
-}, {
-    Hex = '#FF0000',
-    Name = 'Red'
-}, {
-    Hex = '#BC8F8F',
-    Name = 'Rosy Brown'
-}, {
-    Hex = '#4169E1',
-    Name = 'Royal Blue'
-}, {
-    Hex = '#8B4513',
-    Name = 'Saddle Brown'
-}, {
-    Hex = '#FA8072',
-    Name = 'Salmon'
-}, {
-    Hex = '#F4A460',
-    Name = 'Sandy Brown'
-}, {
-    Hex = '#2E8B57',
-    Name = 'Sea Green'
-}, {
-    Hex = '#FFF5EE',
-    Name = 'Sea Shell'
-}, {
-    Hex = '#A0522D',
-    Name = 'Sienna'
-}, {
-    Hex = '#C0C0C0',
-    Name = 'Silver'
-}, {
-    Hex = '#87CEEB',
-    Name = 'Sky Blue'
-}, {
-    Hex = '#6A5ACD',
-    Name = 'Slate Blue'
-}, {
-    Hex = '#708090',
-    Name = 'Slate Gray'
-}, {
-    Hex = '#FFFAFA',
-    Name = 'Snow'
-}, {
-    Hex = '#00FF7F',
-    Name = 'Spring Green'
-}, {
-    Hex = '#4682B4',
-    Name = 'Steel Blue'
-}, {
-    Hex = '#D2B48C',
-    Name = 'Tan'
-}, {
-    Hex = '#008080',
-    Name = 'Teal'
-}, {
-    Hex = '#D8BFD8',
-    Name = 'Thistle'
-}, {
-    Hex = '#FF6347',
-    Name = 'Tomato'
-}, {
-    Hex = '#40E0D0',
-    Name = 'Turquoise'
-}, {
-    Hex = '#EE82EE',
-    Name = 'Violet'
-}, {
-    Hex = '#F5DEB3',
-    Name = 'Wheat'
-}, {
-    Hex = '#FFFFFF',
-    Name = 'White'
-}, {
-    Hex = '#F5F5F5',
-    Name = 'White Smoke'
-}, {
-    Hex = '#FFFF00',
-    Name = 'Yellow'
-}, {
-    Hex = '#9ACD32',
-    Name = 'Yellow Green'
-}}
-local cW = {}
-for K, L in cY do
-    table.insert(cW, L.Name)
-end
-table.sort(cW)
-cz:AddDropdown('selectedDyes', {
-    Text = 'Select Desired Dyes',
-    Tooltip = "Event wheel items with these dyes or close to these dyes won't be sold/recycled",
-    Values = cW,
-    AllowNull = true,
-    Default = {'Rainbow', 'Ghoul', 'Ice', 'Faded', 'Black', 'White'},
-    Multi = true
-})
-cz:AddSlider('colorDistanceThreshold', {
-    Text = 'Color Distance Threshold',
-    Tooltip = 'Keep dyes that are close to your desired dyes',
-    Default = 100,
-    Min = 0,
-    Max = 200,
-    Rounding = 0,
-    HideMax = true,
-    Compact = true
-})
-cz:AddToggle('autoSellCosmetics', {
-    Text = 'Auto Sell Cosmetics',
-    Default = false
-})
-Toggles.autoSellCosmetics:OnChanged(function(cM)
-    if cM and Toggles.autoRecycleCosmetics.Value then
-        Toggles.autoRecycleCosmetics:SetValue(false)
+    local function dc(dd)
+        dd = dd:gsub("#", "")
+        return tonumber("0x" .. dd:sub(1, 2)), tonumber("0x" .. dd:sub(3, 4)), tonumber("0x" .. dd:sub(5, 6))
     end
-end)
-cz:AddToggle('autoRecycleCosmetics', {
-    Text = 'Auto Recycle Cosmetics',
-    Default = false
-})
-Toggles.autoRecycleCosmetics:OnChanged(function(cM)
-    if cM and Toggles.autoSellCosmetics.Value then
-        Toggles.autoSellCosmetics:SetValue(false)
+    local function de(df, dg)
+        local dh, di, dj = dc(df)
+        local dk, dl, dm = dc(dg)
+        return math.sqrt((dk - dh) ^ 2 + (dl - di) ^ 2 + (dm - dj) ^ 2)
     end
-end)
-function color3ToHex(color)
-    local ca = math.floor(color.R * 255 + 0.5)
-    local cZ = math.floor(color.G * 255 + 0.5)
-    local c8 = math.floor(color.B * 255 + 0.5)
-    return string.format("#%02X%02X%02X", ca, cZ, c8)
-end
-function hexToRGB(c_)
-    c_ = c_:gsub("#", "")
-    return tonumber("0x" .. c_:sub(1, 2)), tonumber("0x" .. c_:sub(3, 4)), tonumber("0x" .. c_:sub(5, 6))
-end
-function colorDistance(d0, d1)
-    local d2, d3, d4 = hexToRGB(d0)
-    local d5, d6, d7 = hexToRGB(d1)
-    return math.sqrt((d5 - d2) ^ 2 + (d6 - d3) ^ 2 + (d7 - d4) ^ 2)
-end
-function desiredColorCheck(d8)
-    local d9;
-    local da;
-    if d8 and d8:FindFirstChild('Dye') and d8.Dye.Value then
-        da = color3ToHex(d8.Dye.Value)
-        for db, dc in cY do
-            if Options.selectedDyes.Value[dc.Name] then
-                if da == dc.Hex then
-                    d9 = true;
-                    print('Did not sell ' .. d8.Name .. ' - ' .. dc.Name)
-                    break
-                elseif not dc.SpecialType then
-                    local a8 = colorDistance(da, dc.Hex)
-                    if a8 <= Options.colorDistanceThreshold.Value then
-                        d9 = true;
-                        print('Did not sell ' .. d8.Name .. ' - Similar to ' .. dc.Name .. ' - Color Distance: ' ..
-                                  math.floor(a8 / 0.1) / 10 .. ' - Hex: ' .. da)
+    local function dn(dp)
+        local dq;
+        local dr;
+        if dp and dp:FindFirstChild('Dye') and dp.Dye.Value then
+            dr = d7(dp.Dye.Value)
+            for ds, dt in d6 do
+                if Options.selectedDyes.Value[dt.Name] then
+                    if dr == dt.Hex then
+                        dq = true;
+                        print('Did not sell ' .. dp.Name .. ' - ' .. dt.Name)
                         break
-                    end
-                end
-            end
-        end
-    end
-    if d9 then
-        return true
-    end
-end
-cz:AddButton({
-    Text = 'Sell Selected Cosmetics',
-    Func = function()
-        local cQ = {}
-        for K, L in bF:GetChildren() do
-            local dd = cV[L.Name] or cX[L.Name] or 'none'
-            if (Options.selectedCosmetics.Value[dd] or Options.selectedWheelCosmetics.Value[dd]) and
-                not L:FindFirstChild('Locked') and not desiredColorCheck(L) then
-                table.insert(cQ, L)
-            end
-        end
-        if #cQ > 0 then
-            libNoti('Sold ' .. #cQ .. ' Cosmetics')
-            sell(cQ)
-        end
-    end,
-    DoubleClick = true
-})
-cz:AddButton({
-    Text = 'Recycle Selected Cosmetics',
-    Func = function()
-        local cQ = {}
-        for K, L in bF:GetChildren() do
-            local dd = cV[L.Name] or cX[L.Name] or 'none'
-            if (Options.selectedCosmetics.Value[dd] or Options.selectedWheelCosmetics.Value[dd]) and
-                not L:FindFirstChild('Locked') and not desiredColorCheck(L) then
-                table.insert(cQ, L)
-            end
-        end
-        if #cQ > 0 then
-            libNoti('Recycled ' .. #cQ .. ' Cosmetics')
-            recycle(cQ)
-        end
-    end,
-    DoubleClick = true
-})
-if ay then
-    bF.ChildAdded:Connect(function(L)
-        if Toggles.autoSellCosmetics.Value or Toggles.autoRecycleCosmetics.Value then
-            local dd = cX[L.Name]
-            if dd then
-                L:WaitForChild('Dye', 5)
-                if Options.selectedWheelCosmetics.Value[dd] and not L:FindFirstChild('Locked') and
-                    not desiredColorCheck(L) then
-                    if Toggles.autoSellCosmetics.Value then
-                        sell({L})
-                    end
-                    if Toggles.autoRecycleCosmetics.Value then
-                        recycle({L})
-                    end
-                end
-            end
-        end
-    end)
-    bE.ChildAdded:Connect(function(L)
-        if Toggles.autoSellEggs.Value then
-            local d8 = bJ[L.Name]
-            if d8.Type == 'Egg' then
-                sell({L})
-            end
-        end
-    end)
-end
-cB:AddInput('wheelCount', {
-    Default = 100,
-    Numeric = true,
-    Finished = true,
-    Text = 'Wheel Spin Count'
-})
-cB:AddSlider('wheelDelay', {
-    Text = 'Wheel Spin Delay',
-    Tooltip = 'Keep dyes that are close to your desired dyes',
-    Default = 0,
-    Min = 0,
-    Max = 5,
-    Rounding = 1,
-    HideMax = true,
-    Compact = true
-})
-local de = cB:AddLabel(Options.wheelCount.Value .. ' spins in ' ..
-                           timeElapsed(math.round((Options.wheelCount.Value - 1) * Options.wheelDelay.Value * 10) / 10))
-Options.wheelCount:OnChanged(function(cM)
-    de:SetText(cM .. ' spins in ' .. timeElapsed(math.round((cM - 1) * Options.wheelDelay.Value * 10) / 10))
-end)
-Options.wheelDelay:OnChanged(function(cM)
-    de:SetText(Options.wheelCount.Value .. ' spins in ' ..
-                   timeElapsed(math.round((Options.wheelCount.Value - 1) * cM * 10) / 10))
-end)
-cB:AddButton({
-    Text = 'Spin wheel with the settings above!',
-    Func = function()
-        local df, dg = tonumber(Options.wheelCount.Value), Options.wheelDelay.Value;
-        if df > 0 then
-            libNoti('Spinning the wheel ' .. df .. ' times in ' .. timeElapsed(math.round((df - 1) * dg * 10) / 10) ..
-                        ' seconds!', 7)
-            for K = 1, df do
-                _.EventSpinner.JoinQueue:FireServer(c)
-                task.wait(dg)
-            end
-        end
-    end,
-    DoubleClick = true
-})
-function PlayerTp(x, c9, dh, di)
-    if alive() then
-        aO.CFrame = CFrame.new(x + Vector3.new(c9, dh, di))
-    end
-end
-function SmartPlayerTp(bq, dj)
-    if not alive() then
-        return
-    end
-    noclip()
-    aO.Velocity = Vector3.new()
-    if aN:FindFirstChild("Collider") then
-        aN.Collider.Velocity = Vector3.new()
-    end
-    if dj then
-        aO.CFrame = CFrame.lookAt(bq.Position, Vector3.new(dj.Position.x, bq.Position.y, dj.Position.z))
-    else
-        aO.CFrame = bq
-    end
-end
-cD:AddToggle('NVD', {
-    Text = 'No Visual Damage',
-    Default = true
-})
-cD:AddToggle('rendering', {
-    Text = 'Disable 3D Rendering',
-    Default = false
-})
-Toggles.rendering:OnChanged(function(cc)
-    cloneref(game:GetService("RunService")):Set3dRenderingEnabled(not cc)
-end)
-cD:AddToggle('autoHide', {
-    Text = 'Hide GUI On Execution',
-    Default = false
-})
-cF:AddButton({
-    Text = 'Upgrade Equipped Items',
-    Func = function()
-        local dk = {aZ:GetChildren()[1], a_:GetChildren()[1], b0:GetChildren()[1]}
-        for db, dl in dk do
-            task.spawn(function()
-                if dl and dl:FindFirstChild('UpgradeLimit') and dl.UpgradeLimit.Value ~= 0 then
-                    local dm = aV.Value;
-                    local dn = tick()
-                    while task.wait(0.1) do
-                        if dl:FindFirstChild('Upgrade') and dl.Upgrade.Value == dl.UpgradeLimit.Value then
+                    elseif not dt.SpecialType then
+                        local _ = de(dr, dt.Hex)
+                        if _ <= Options.colorDistanceThreshold.Value then
+                            dq = true;
+                            print('Did not sell ' .. dp.Name .. ' - Similar to ' .. dt.Name .. ' - Color Distance: ' ..
+                                      math.floor(_ / 0.1) / 10 .. ' - Hex: ' .. dr)
                             break
-                        else
-                            b1:FireServer(dl)
-                            if aV.Value ~= dm then
-                                dm = aV.Value;
-                                dn = tick()
-                            end
-                            if tick() - dn >= 2 then
-                                break
-                            end
                         end
                     end
                 end
-            end)
-        end
-    end,
-    DoubleClick = true
-})
-cF:AddButton({
-    Text = 'Discover Dungeons (BLATANT)',
-    Func = function()
-        if alive() and not aw then
-            local dp = Workspace.PhysicalDungeonLocations;
-            for K, L in dp:GetChildren() do
-                _.Teleport.WaystoneTeleport:FireServer(1)
-                aO:GetPropertyChangedSignal("Position"):Once(function()
-                    PlayerTp(L.Ring.Position, 0, 10, 0)
-                end)
-                wait(1)
             end
         end
-    end,
-    DoubleClick = true
-})
-local dq = false;
-if olympus then
-    cF:AddButton({
-        Text = 'Dex Explorer',
+        if dq then
+            return true
+        end
+    end
+    cH:AddButton({
+        Text = 'Sell Selected Cosmetics',
         Func = function()
-            if not dq then
-                dq = true;
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
+            local cZ = {}
+            for B, C in pairs(bG:GetChildren()) do
+                local du = d3[C.Name] or d5[C.Name] or 'none'
+                if (Options.selectedCosmetics.Value[du] or Options.selectedWheelCosmetics.Value[du]) and
+                    not C:FindFirstChild('Locked') and not dn(C) then
+                    table.insert(cZ, C)
+                end
+            end
+            if #cZ > 0 then
+                cq('Sold ' .. #cZ .. ' Cosmetics')
+                sell(cZ)
+            end
+        end,
+        DoubleClick = true
+    })
+    cH:AddButton({
+        Text = 'Recycle Selected Cosmetics',
+        Func = function()
+            local cZ = {}
+            for B, C in pairs(bG:GetChildren()) do
+                local du = d3[C.Name] or d5[C.Name] or 'none'
+                if (Options.selectedCosmetics.Value[du] or Options.selectedWheelCosmetics.Value[du]) and
+                    not C:FindFirstChild('Locked') and not dn(C) then
+                    table.insert(cZ, C)
+                end
+            end
+            if #cZ > 0 then
+                cq('Recycled ' .. #cZ .. ' Cosmetics')
+                recycle(cZ)
+            end
+        end,
+        DoubleClick = true
+    })
+    if aq then
+        bG.ChildAdded:Connect(function(C)
+            if Toggles.autoSellCosmetics.Value or Toggles.autoRecycleCosmetics.Value then
+                local du = d5[C.Name]
+                if du then
+                    C:WaitForChild('Dye', 5)
+                    if Options.selectedWheelCosmetics.Value[du] and not C:FindFirstChild('Locked') and not dn(C) then
+                        if Toggles.autoSellCosmetics.Value then
+                            sell({C})
+                        end
+                        if Toggles.autoRecycleCosmetics.Value then
+                            recycle({C})
+                        end
+                    end
+                end
+            end
+        end)
+        bF.ChildAdded:Connect(function(C)
+            if Toggles.autoSellEggs.Value then
+                local dp = bL[C.Name]
+                if dp.Type == 'Egg' then
+                    sell({C})
+                end
+            end
+        end)
+    end
+end
+do
+    cJ:AddInput('wheelCount', {
+        Default = 100,
+        Numeric = true,
+        Finished = true,
+        Text = 'Wheel Spin Count'
+    })
+    cJ:AddSlider('wheelDelay', {
+        Text = 'Wheel Spin Delay',
+        Tooltip = 'Keep dyes that are close to your desired dyes',
+        Default = 0,
+        Min = 0,
+        Max = 5,
+        Rounding = 1,
+        HideMax = true,
+        Compact = true
+    })
+    local dv = cJ:AddLabel(Options.wheelCount.Value .. ' spins in ' ..
+                               timeElapsed(
+            math.round((Options.wheelCount.Value - 1) * Options.wheelDelay.Value * 10) / 10))
+    Options.wheelCount:OnChanged(function(cU)
+        dv:SetText(cU .. ' spins in ' .. timeElapsed(math.round((cU - 1) * Options.wheelDelay.Value * 10) / 10))
+    end)
+    Options.wheelDelay:OnChanged(function(cU)
+        dv:SetText(Options.wheelCount.Value .. ' spins in ' ..
+                       timeElapsed(math.round((Options.wheelCount.Value - 1) * cU * 10) / 10))
+    end)
+    cJ:AddButton({
+        Text = 'Spin wheel with the settings above!',
+        Func = function()
+            local dw, dx = tonumber(Options.wheelCount.Value), Options.wheelDelay.Value;
+            if dw > 0 then
+                cq('Spinning the wheel ' .. dw .. ' times in ' .. timeElapsed(math.round((dw - 1) * dx * 10) / 10) ..
+                       ' seconds!', 7)
+                for B = 1, dw do
+                    S.EventSpinner.JoinQueue:FireServer(c)
+                    task.wait(dx)
+                end
             end
         end,
         DoubleClick = true
     })
 end
-local dr = 7;
-local ds = {
-    Bank = {
-        DisplayName = 'Bank',
-        CodeName = 'Bank',
-        OrderId = 1
-    },
-    ZeroAltar = {
-        DisplayName = 'Zero Altar',
-        CodeName = 'Fusion',
-        OrderId = 2
-    },
-    UpgradeMenu = {
-        DisplayName = 'Upgrade',
-        CodeName = 'ItemUpgrade',
-        OrderId = 3
-    },
-    DungeonMenu = {
-        DisplayName = 'Dungeon Menu',
-        CodeName = 'MissionSelect',
-        OrderId = 4
-    },
-    Inventory = {
-        DisplayName = 'Inventory',
-        CodeName = 'Inventory',
-        OrderId = 5
-    },
-    Recycler = {
-        DisplayName = 'Recycler',
-        CodeName = 'Recycler',
-        OrderId = 6
-    },
-    AdminItemPanel = {
-        DisplayName = 'Admin Item Panel',
-        CodeName = 'AdminItemPanel',
-        OrderId = 7
+do
+    function PlayerTp(o, dy, dz, dA)
+        if alive() then
+            aG.CFrame = CFrame.new(o + Vector3.new(dy, dz, dA))
+        end
+    end
+    function SmartPlayerTp(bq, dB)
+        if not alive() then
+            return
+        end
+        noclip()
+        aG.Velocity = Vector3.new()
+        if aF:FindFirstChild("Collider") then
+            aF.Collider.Velocity = Vector3.new()
+        end
+        if dB then
+            aG.CFrame = CFrame.lookAt(bq.Position, Vector3.new(dB.Position.x, bq.Position.y, dB.Position.z))
+        else
+            aG.CFrame = bq
+        end
+    end
+    cL:AddToggle('NVD', {
+        Text = 'No Visual Damage',
+        Default = true
+    })
+    cL:AddToggle('rendering', {
+        Text = 'Disable 3D Rendering',
+        Default = false
+    })
+    Toggles.rendering:OnChanged(function(cV)
+        cloneref(game:GetService("RunService")):Set3dRenderingEnabled(not cV)
+    end)
+    cL:AddToggle('autoHide', {
+        Text = 'Hide GUI On Execution',
+        Default = false
+    })
+    cN:AddButton({
+        Text = 'Upgrade Equipped Items',
+        Func = function()
+            local dC = {aT:GetChildren()[1], aU:GetChildren()[1], aV:GetChildren()[1]}
+            for ds, dD in dC do
+                task.spawn(function()
+                    if dD and dD:FindFirstChild('UpgradeLimit') and dD.UpgradeLimit.Value ~= 0 then
+                        local dE = aP.Value;
+                        local dF = tick()
+                        while task.wait(0.1) do
+                            if dD:FindFirstChild('Upgrade') and dD.Upgrade.Value == dD.UpgradeLimit.Value then
+                                break
+                            else
+                                aW:FireServer(dD)
+                                if aP.Value ~= dE then
+                                    dE = aP.Value;
+                                    dF = tick()
+                                end
+                                if tick() - dF >= 2 then
+                                    break
+                                end
+                            end
+                        end
+                    end
+                end)
+            end
+        end,
+        DoubleClick = true
+    })
+    cN:AddButton({
+        Text = 'Discover Dungeons (BLATANT)',
+        Func = function()
+            if alive() and not ao then
+                local dG = Workspace.PhysicalDungeonLocations;
+                for B, C in pairs(dG:GetChildren()) do
+                    S.Teleport.WaystoneTeleport:FireServer(1)
+                    aG:GetPropertyChangedSignal("Position"):Once(function()
+                        PlayerTp(C.Ring.Position, 0, 10, 0)
+                    end)
+                    wait(1)
+                end
+            end
+        end,
+        DoubleClick = true
+    })
+    local dH = false;
+    local dI = true;
+    if olympus then
+        cN:AddButton({
+            Text = 'Dex Explorer',
+            Func = function()
+                if not dH then
+                    dH = true;
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
+                end
+            end,
+            DoubleClick = true
+        })
+    end
+end
+do
+    local dJ = 7;
+    local dK = {
+        Bank = {
+            DisplayName = 'Bank',
+            CodeName = 'Bank',
+            OrderId = 1
+        },
+        ZeroAltar = {
+            DisplayName = 'Zero Altar',
+            CodeName = 'Fusion',
+            OrderId = 2
+        },
+        UpgradeMenu = {
+            DisplayName = 'Upgrade',
+            CodeName = 'ItemUpgrade',
+            OrderId = 3
+        },
+        DungeonMenu = {
+            DisplayName = 'Dungeon Menu',
+            CodeName = 'MissionSelect',
+            OrderId = 4
+        },
+        Inventory = {
+            DisplayName = 'Inventory',
+            CodeName = 'Inventory',
+            OrderId = 5
+        },
+        Recycler = {
+            DisplayName = 'Recycler',
+            CodeName = 'Recycler',
+            OrderId = 6
+        },
+        AdminItemPanel = {
+            DisplayName = 'Admin Item Panel',
+            CodeName = 'AdminItemPanel',
+            OrderId = 7
+        }
     }
-}
-function OpenGui(x)
-    setthreadcontext(2)
-    require(Z.Client.Gui):Get(x):Open()
-end
-for K = 1, dr do
-    for dt, du in ds do
-        if du.OrderId == K then
-            cG:AddButton({
-                Text = du.DisplayName,
-                Func = function()
-                    OpenGui(du.CodeName)
-                end,
-                DoubleClick = false
-            })
+    local function dL(o)
+        setthreadcontext(2)
+        require(R.Client.Gui):Get(o):Open()
+    end
+    for B = 1, dJ do
+        for dM, dN in pairs(dK) do
+            if dN.OrderId == B then
+                cO:AddButton({
+                    Text = dN.DisplayName,
+                    Func = function()
+                        dL(dN.CodeName)
+                    end,
+                    DoubleClick = false
+                })
+            end
         end
     end
-end
-cG:AddInput('marketFilter', {
-    Numeric = false,
-    Finished = true,
-    Text = 'Market Filter'
-})
-cG:AddButton({
-    Text = 'Open All Markets',
-    Func = function()
-        task.spawn(function()
-            setthreadcontext(2)
-            local dv = require(game.ReplicatedStorage.Client.Gui):Get("Shop")
-            local dw = getfenv(dv.Open).BuildShop;
-            pcall(dv.Open, dv, game)
-            for K, L in getupvalue(dw, 1) do
-                L:Destroy()
-            end
-            for K, L in getupvalue(dw, 2) do
-                L:Disconnect()
-            end
-            local dx = {}
-            local dy = {}
-            local dz = Z:WaitForChild("PlayerShops")
-            for K, dA in b:GetPlayers() do
-                local dB = dz:FindFirstChild(dA.Name) and dz[dA.Name]:FindFirstChild("SellShop")
-                if dB and dB:FindFirstChild("Active") and dB.Active.Value then
-                    setupvalue(dw, 1, {})
-                    setupvalue(dw, 2, {})
-                    dw(dA)
-                    for K, L in getupvalue(dw, 1) do
-                        L.Title.Text = L.Title.Text .. " (" .. dA.Name .. ")"
-                        L.Title.Overlay.Text = L.Title.Text;
-                        table.insert(dx, L)
-                    end
-                    for K, L in getupvalue(dw, 2) do
-                        table.insert(dy, L)
+    cO:AddInput('marketFilter', {
+        Numeric = false,
+        Finished = true,
+        Text = 'Market Filter'
+    })
+    cO:AddButton({
+        Text = 'Open All Markets',
+        Func = function()
+            task.spawn(function()
+                setthreadcontext(2)
+                local dO = require(game.ReplicatedStorage.Client.Gui):Get("Shop")
+                local dP = getfenv(dO.Open).BuildShop;
+                pcall(dO.Open, dO, game)
+                for B, C in pairs(getupvalue(dP, 1)) do
+                    C:Destroy()
+                end
+                for B, C in pairs(getupvalue(dP, 2)) do
+                    C:Disconnect()
+                end
+                local dQ = {}
+                local dR = {}
+                local dS = R:WaitForChild("PlayerShops")
+                for B, dT in pairs(b:GetPlayers()) do
+                    local dU = dS:FindFirstChild(dT.Name) and dS[dT.Name]:FindFirstChild("SellShop")
+                    if dU and dU:FindFirstChild("Active") and dU.Active.Value then
+                        setupvalue(dP, 1, {})
+                        setupvalue(dP, 2, {})
+                        dP(dT)
+                        for B, C in pairs(getupvalue(dP, 1)) do
+                            C.Title.Text = C.Title.Text .. " (" .. dT.Name .. ")"
+                            C.Title.Overlay.Text = C.Title.Text;
+                            table.insert(dQ, C)
+                        end
+                        for B, C in pairs(getupvalue(dP, 2)) do
+                            table.insert(dR, C)
+                        end
                     end
                 end
-            end
-            if Options.marketFilter.Value and #Options.marketFilter.Value > 0 then
-                for K, L in dx do
-                    if not L.Title.Text:lower():find(Options.marketFilter.Value:lower()) then
-                        L:Destroy()
+                if Options.marketFilter.Value and #Options.marketFilter.Value > 0 then
+                    for B, C in pairs(dQ) do
+                        if not C.Title.Text:lower():find(Options.marketFilter.Value:lower()) then
+                            C:Destroy()
+                        end
                     end
                 end
-            end
-            table.sort(dx, function(dC, c8)
-                local dD =
-                    dC:FindFirstChild('Cost') and dC.Cost:FindFirstChild('Overlay') and #dC.Cost.Overlay.Text > 0 and
-                        dC.Cost.Overlay.Text:gsub(",", "") and tonumber(dC.Cost.Overlay.Text:gsub(",", "")) or 0;
-                local dE =
-                    c8:FindFirstChild('Cost') and c8.Cost:FindFirstChild('Overlay') and #c8.Cost.Overlay.Text > 0 and
-                        c8.Cost.Overlay.Text:gsub(",", "") and tonumber(c8.Cost.Overlay.Text:gsub(",", "")) or 0;
-                return dD > dE
+                table.sort(dQ, function(dV, db)
+                    local dW =
+                        dV:FindFirstChild('Cost') and dV.Cost:FindFirstChild('Overlay') and #dV.Cost.Overlay.Text > 0 and
+                            dV.Cost.Overlay.Text:gsub(",", "") and tonumber(dV.Cost.Overlay.Text:gsub(",", "")) or 0;
+                    local dX =
+                        db:FindFirstChild('Cost') and db.Cost:FindFirstChild('Overlay') and #db.Cost.Overlay.Text > 0 and
+                            db.Cost.Overlay.Text:gsub(",", "") and tonumber(db.Cost.Overlay.Text:gsub(",", "")) or 0;
+                    return dW > dX
+                end)
+                setupvalue(dP, 1, dQ)
+                setupvalue(dP, 2, dR)
+                getupvalue(dO.Init, 1).Title.Text = "All Shops"
+                getupvalue(dO.Init, 1).Title.Overlay.Text = "All Shops"
             end)
-            setupvalue(dw, 1, dx)
-            setupvalue(dw, 2, dy)
-            getupvalue(dv.Init, 1).Title.Text = "All Shops"
-            getupvalue(dv.Init, 1).Title.Overlay.Text = "All Shops"
-        end)
-    end,
-    DoubleClick = false
-})
-local dF = cI:AddLabel('Gold Gain: ' .. aV.Value - aW)
-local dG = cI:AddLabel('Gold Rate: N/A')
-local dH = true;
-g = tick()
-local dI;
-local dJ;
-local dK = false;
-local dL = cI:AddLabel('Total Gold: ' .. formatNumberWithCommas(aV.Value))
-local dM = cI:AddLabel('Session Time: 0s')
-cI:AddDivider()
-local dN = ai.CrossSessionTimestamp or tick()
-local dO = cI:AddLabel('Cross-Session Time: ' .. timeElapsed(tick() - dN))
-local dP =
-    cI:AddLabel('CS Gold Gain: ' .. formatNumberWithCommas(ai.CrossSessionGold and aX - ai.CrossSessionGold or 0))
-local dQ = ai.CrossSessionGold or aX;
-cI:AddButton({
-    Text = 'Reset Cross-Session Time',
-    Func = function()
-        dN = tick()
-        ai.CrossSessionTimestamp = dN;
-        save()
-    end,
-    DoubleClick = true
-})
-cI:AddButton({
-    Text = 'Reset Cross-Session Gold',
-    Func = function()
-        dQ = aX;
-        ai.CrossSessionGold = dQ;
-        save()
-        dP:SetText('CS Gold Gain: 0')
-    end,
-    DoubleClick = true
-})
-local dR;
-if not ai.CrossSessionTimestamp then
-    ai.CrossSessionTimestamp = dN;
-    dR = true
-end
-if not ai.CrossSessionGold then
-    ai.CrossSessionGold = dQ;
-    dR = true
-end
-if dR then
-    save()
-end
-task.spawn(function()
-    while true do
-        if aV.Value ~= aX then
-            aX = aV.Value;
-            if not dH then
-                dG:SetText('Gold Rate: ' .. math.floor((aX - dJ) / (tick() - dI) * 600) / 10 .. '/min')
-            end
-            if dH then
-                dH = false;
-                dK = true;
-                dI = tick()
-                dJ = aX
-            end
-            dF:SetText('Gold Gained: ' .. formatNumberWithCommas(aX - aW))
-            dL:SetText('Total Gold: ' .. formatNumberWithCommas(aX))
-            dP:SetText('CS Gold Gain: ' .. formatNumberWithCommas(aX - dQ))
-        end
-        task.wait()
-    end
-end)
-task.spawn(function()
-    while true do
-        task.wait(1)
-        dM:SetText('Session Time: ' .. timeElapsed(tick() - g))
-        dO:SetText('Cross-Session Time: ' .. timeElapsed(tick() - dN))
-    end
-end)
-for K = 1, c3 do
-    for dt, dS in c4 do
-        if dS.OrderId == K then
-            cJ:AddButton({
-                Text = dS.Name,
-                Func = function()
-                    _.Teleport.TeleportToHub:FireServer(dS.Id)
-                end,
-                DoubleClick = false
-            })
-        end
-    end
-end
-for K, L in au do
-    cK:AddButton({
-        Text = bG[L].NameTag .. ' T' .. K,
-        Func = function()
-            StartRaid(L)
         end,
         DoubleClick = false
     })
 end
-for K, L in av do
-    cL:AddButton({
-        Text = string.gsub(bG[L].NameTag, '%(NIGHTMARE%) ', '') .. ' ' .. bG[L].DisplayWorldID .. '-' ..
-            bG[L].WorldMissionID,
+do
+    local dY = cQ:AddLabel('Gold Gain: ' .. aP.Value - aQ)
+    local dZ = cQ:AddLabel('Gold Rate: N/A')
+    local d_ = true;
+    getgenv().sessionTick = tick()
+    local e0;
+    local e1;
+    local e2 = false;
+    local e3 = cQ:AddLabel('Total Gold: ' .. formatNumberWithCommas(aP.Value))
+    local e4 = cQ:AddLabel('Session Time: 0s')
+    cQ:AddDivider()
+    local e5 = aa.CrossSessionTimestamp or tick()
+    local e6 = cQ:AddLabel('Cross-Session Time: ' .. timeElapsed(tick() - e5))
+    local e7 = cQ:AddLabel('CS Gold Gain: ' ..
+                               formatNumberWithCommas(aa.CrossSessionGold and aR - aa.CrossSessionGold or 0))
+    local e8 = aa.CrossSessionGold or aR;
+    cQ:AddButton({
+        Text = 'Reset Cross-Session Time',
         Func = function()
-            StartRaid(L, Toggles.ChallengeMode.Value and 5 or 1)
+            e5 = tick()
+            aa.CrossSessionTimestamp = e5;
+            save()
         end,
-        DoubleClick = false
+        DoubleClick = true
     })
+    cQ:AddButton({
+        Text = 'Reset Cross-Session Gold',
+        Func = function()
+            e8 = aR;
+            aa.CrossSessionGold = e8;
+            save()
+            e7:SetText('CS Gold Gain: 0')
+        end,
+        DoubleClick = true
+    })
+    local e9;
+    if not aa.CrossSessionTimestamp then
+        aa.CrossSessionTimestamp = e5;
+        e9 = true
+    end
+    if not aa.CrossSessionGold then
+        aa.CrossSessionGold = e8;
+        e9 = true
+    end
+    if e9 then
+        save()
+    end
+    task.spawn(function()
+        while true do
+            if aP.Value ~= aR then
+                aR = aP.Value;
+                if not d_ then
+                    dZ:SetText('Gold Rate: ' .. math.floor((aR - e1) / (tick() - e0) * 600) / 10 .. '/min')
+                end
+                if d_ then
+                    d_ = false;
+                    e2 = true;
+                    e0 = tick()
+                    e1 = aR
+                end
+                dY:SetText('Gold Gained: ' .. formatNumberWithCommas(aR - aQ))
+                e3:SetText('Total Gold: ' .. formatNumberWithCommas(aR))
+                e7:SetText('CS Gold Gain: ' .. formatNumberWithCommas(aR - e8))
+            end
+            task.wait()
+        end
+    end)
+    task.spawn(function()
+        while true do
+            task.wait(1)
+            e4:SetText('Session Time: ' .. timeElapsed(tick() - sessionTick))
+            e6:SetText('Cross-Session Time: ' .. timeElapsed(tick() - e5))
+        end
+    end)
 end
-cL:AddToggle('ChallengeMode', {
-    Text = 'Challenge Mode',
-    Default = true
-})
+do
+    for B = 1, c6 do
+        for dM, ea in pairs(c7) do
+            if ea.OrderId == B then
+                cR:AddButton({
+                    Text = ea.Name,
+                    Func = function()
+                        S.Teleport.TeleportToHub:FireServer(ea.Id)
+                    end,
+                    DoubleClick = false
+                })
+            end
+        end
+    end
+end
+do
+    for B, C in pairs(am) do
+        local eb = bH[C]
+        cS:AddButton({
+            Text = eb.NameTag .. ' T' .. B,
+            Func = function()
+                StartRaid(C)
+            end,
+            DoubleClick = false
+        })
+    end
+end
+do
+    local ec;
+    for B, C in pairs(an) do
+        local eb = bH[C]
+        local ed = string.gsub(eb.NameTag, '%(NIGHTMARE%) ', '')
+        cT:AddButton({
+            Text = ed .. ' ' .. eb.DisplayWorldID .. '-' .. eb.WorldMissionID,
+            Func = function()
+                StartRaid(C, ec)
+            end,
+            DoubleClick = false
+        })
+    end
+    cT:AddToggle('ChallengeMode', {
+        Text = 'Challenge Mode',
+        Default = true
+    })
+    Toggles.ChallengeMode:OnChanged(function(cV)
+        if cV then
+            ec = 5
+        else
+            ec = 1
+        end
+    end)
+end
 local dT = Vector3.new(0, 500, 0)
 local dU = Vector3.new()
 local dV;
@@ -5794,5 +5790,6 @@ end
 pcall(function()
     a4 = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(d, 8136250)
 end)
+
 
 
