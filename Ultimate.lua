@@ -5535,7 +5535,7 @@ Toggles.Killaura:OnChanged(function(cM)
     ae = tick()
     task.spawn(function()
         local fY;
-        local fZ = 66;
+        local fZ = 67;
         while Toggles.Killaura.Value and aw do
             a5, a6, a7, a8, a9, aa, ab = getClosestMob(bQ)
             if alive() and a5 then
@@ -5794,4 +5794,5 @@ end
 pcall(function()
     a4 = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(d, 8136250)
 end)
+
 
